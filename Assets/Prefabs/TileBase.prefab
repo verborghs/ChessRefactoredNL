@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 672434757755561673}
   - component: {fileID: 3901704315104048120}
-  m_Layer: 7
+  - component: {fileID: 8880434065449566326}
+  m_Layer: 6
   m_Name: TileBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +47,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.2, z: 1}
   m_Center: {x: 0, y: -0.1, z: 0}
+--- !u!114 &8880434065449566326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079400175255736116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f887a513f262c7540b63f8f2a22668db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2785026748652772897
 GameObject:
   m_ObjectHideFlags: 0
