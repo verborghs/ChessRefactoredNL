@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BoardSystem;
+using System;
 using UnityEngine;
 
-public class PositionEventArgs : EventArgs
+
+namespace GameSystem.Views
 {
-    public Position Position { get;  }
-
-    public PositionEventArgs(Position position)
+    public class PositionEventArgs : EventArgs
     {
-        Position = position;
-    }
-}
+        public Position Position { get; }
 
-public class BoardView : MonoBehaviour
-{
-    public event EventHandler<PositionEventArgs> PositionClicked;
-
-    internal void OnPositionViewClicked(PositionView positionView)
-    {
-        OnPositionClicked(new PositionEventArgs(positionView.GridPosition));
+        public PositionEventArgs(Position position)
+        {
+            Position = position;
+        }
     }
 
-    protected virtual void OnPositionClicked(PositionEventArgs eventArgs)
+    public class BoardView : MonoBehaviour
     {
-        var handler = PositionClicked;
-        handler?.Invoke(this, eventArgs);
-    } 
+        public event EventHandler<PositionEventArgs> PositionClicked;
+
+        internal void OnPositionViewClicked(PositionView positionView)
+        {
+            OnPositionClicked(new PositionEventArgs(positionView.GridPosition));
+        }
+
+        protected virtual void OnPositionClicked(PositionEventArgs eventArgs)
+        {
+            var handler = PositionClicked;
+            handler?.Invoke(this, eventArgs);
+        }
+    }
 }
