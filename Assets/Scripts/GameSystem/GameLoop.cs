@@ -1,4 +1,5 @@
 ﻿using BoardSystem;
+using ChessSystem;
 using GameSystem.Helpers;
 using GameSystem.Views;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace GameSystem
     {
 
         private Board<PieceView> _board;
+        private Engine<PieceView> _engine;
+
         private void Start()
         {
 
@@ -18,6 +21,7 @@ namespace GameSystem
             _board.PieceTaken += (s, e) => e.Piece.Take();
             _board.PiecePlaced += (s, e) => e.Piece.Place(e.ToPosition);
 
+            _engine = new Engine<PieceView>(_board);
 
             var pieceViews = FindObjectsOfType<PieceView>();
             foreach (var pieceView in pieceViews)
@@ -33,9 +37,20 @@ namespace GameSystem
             var fromPosition = eventArgs.Position;
             Debug.Log($"{fromPosition}");
 
-            var toPosition = new Position(fromPosition.X, fromPosition.Y + 1);
-            _board.Take(toPosition);
-            _board.Move(fromPosition, toPosition);
+
+            if (!_board.TryGetPieceAt(fromPosition, out var piece))
+                return;
+
+
+            var moveSet = _engine.MoveSet.For(piece.Type);
+
+            var validPositions = moveSet.Positions(fromPosition);            
+            if (validPositions.Count == 0)
+                return;
+
+            var toPosition = validPositions[0];
+
+            _engine.Move(fromPosition, toPosition);
 
         }
     }
