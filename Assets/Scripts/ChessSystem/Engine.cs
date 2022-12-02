@@ -14,6 +14,9 @@ namespace ChessSystem
         private readonly MoveSetCollection<TPiece> _moveSetCollection;
         private Player _currentPlayer = Player.Player1;
 
+        public MoveSetCollection<TPiece> MoveSet => _moveSetCollection;
+        public Player CurrentPlayer => _currentPlayer;
+
         public Engine(Board<TPiece> board)
         {
             _board = board;
@@ -39,7 +42,7 @@ namespace ChessSystem
             return true;
         }
 
-        public MoveSetCollection<TPiece> MoveSet => _moveSetCollection;
+
 
         //public List<Position> Positions(Position fromPosition)
         //{

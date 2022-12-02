@@ -45,17 +45,32 @@ namespace BoardSystem
         }
     }
 
+
+    public class PositionsActivatedEventArgs : EventArgs
+    {
+        public List<Position> OldPositions { get;  }
+        public List<Position> NewPositions { get; }
+
+        public PositionsActivatedEventArgs(List<Position> oldPositions, List<Position> newPositions)
+        {
+            OldPositions = oldPositions;
+            NewPositions = newPositions;
+        }
+    }
     public class Board<TPiece>
     {
 
-        public event EventHandler< PieceMovedEventArgs<TPiece> > PieceMoved;
-        public event EventHandler< PieceTakenEventArgs<TPiece> > PieceTaken;
-        public event EventHandler< PiecePlacedEventArgs<TPiece> > PiecePlaced;
+        public event EventHandler<PieceMovedEventArgs<TPiece>> PieceMoved;
+        public event EventHandler<PieceTakenEventArgs<TPiece>> PieceTaken;
+        public event EventHandler<PiecePlacedEventArgs<TPiece>> PiecePlaced;
+       
 
         private readonly Dictionary<Position, TPiece> _pieces = new Dictionary<Position, TPiece>();
 
         private readonly int _rows;
         private readonly int _columns;
+
+
 
         public Board(int rows, int columns)
         {
@@ -147,6 +162,33 @@ namespace BoardSystem
         }
         #endregion
 
+
+        // public event EventHandler<PositionsActivatedEventArgs> PositionsActivated;
+        //private List<Position> _activatedPositions;
+        //
+        //public List<Position> ActivatedPositions
+        //{
+        //    get
+        //    {
+        //
+        //        return _activatedPositions;
+        //    }
+        //
+        //    set
+        //    {
+        //        var eventArgs = new PositionsActivatedEventArgs(_activatedPositions, value);
+        //
+        //        _activatedPositions = value;
+        //
+        //        OnPositionsActivated(eventArgs);
+        //    }
+        //}
+        //
+        //private void OnPositionsActivated(PositionsActivatedEventArgs eventArgs)
+        //{
+        //    var handler = PositionsActivated;
+        //    handler?.Invoke(this, eventArgs);
+        //}
     }
 
 }
