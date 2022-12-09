@@ -1,4 +1,5 @@
 ﻿using BoardSystem;
+using CommandSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ChessSystem
     {
         private readonly Collector<TPiece> _collector;
 
-        public ConfigurableMoveSet(Board<TPiece> board, Collector<TPiece> collector) : base(board)
+        public ConfigurableMoveSet(Board<TPiece> board, CommandQueue commandQueue,  Collector<TPiece> collector) : base(board, commandQueue)
         {
             _collector = collector;
         }

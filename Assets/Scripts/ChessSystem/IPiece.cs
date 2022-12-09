@@ -11,5 +11,7 @@ namespace ChessSystem
         public PieceType Type { get;  }
 
         public Player Player { get; }
+
+        //public bool HasMoved { get;  }
     }
 }

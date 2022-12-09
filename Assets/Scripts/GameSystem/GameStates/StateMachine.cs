@@ -5,15 +5,16 @@ namespace GameSystem.GameStates
 
     public enum States
     {
-        Menu, Playing
+        Menu, Playing, Replay
     }
 
     public class StateMachine
     {
         private Dictionary<States, State> _states = new Dictionary<States, State>();
-        private States _currentStateName;
 
-        public State CurrentState => _states[_currentStateName];
+        private Stack<States> _currentStateNames = new Stack<States>();
+
+        public State CurrentState => _states[_currentStateNames.Peek()];
 
         public void Register(States stateName, State state)
         {
@@ -26,17 +27,43 @@ namespace GameSystem.GameStates
         {
             set
             {
-                _currentStateName = value;
+                _currentStateNames.Push(value);
                 CurrentState.OnEnter();
+                CurrentState.OnResume();
             }
         }
 
         public void MoveTo(States stateName)
         {
+            CurrentState.OnSuspend();
             CurrentState.OnExit();
-            _currentStateName = stateName;
+
+            _currentStateNames.Pop();
+            _currentStateNames.Push(stateName);
+
             CurrentState.OnEnter();
+            CurrentState.OnResume();
         }
 
+
+        public void Push(States stateName)
+        {
+            CurrentState.OnSuspend();
+
+            _currentStateNames.Push(stateName);
+
+            CurrentState.OnEnter();
+            CurrentState.OnResume();
+        }
+
+        public void Pop()
+        {
+            CurrentState.OnSuspend();
+            CurrentState.OnExit();
+
+            _currentStateNames.Pop();
+
+            CurrentState.OnResume();
+        }
     }
 }
